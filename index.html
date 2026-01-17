@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nailab — Project Tracker & Documentation</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .hero-bg { background: linear-gradient(90deg, #e6f2ff 0%, #f8fbff 100%);} 
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <div id="nailabHeader"></div>
+  <script src="/shared.js"></script>
+  <script>if (window.NailabShared && typeof window.NailabShared.renderHeader === 'function') window.NailabShared.renderHeader({ pageTitle: 'Nailab Project Tracker' });</script>
+
+  <main class="max-w-7xl mx-auto p-6">
+    <!-- Hero -->
+    <section class="hero-bg rounded-lg p-8 mb-8 shadow-sm">
+      <div class="text-center max-w-3xl mx-auto">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-bold text-sky-800">Nailab Application Tracker & Documentation</h1>
+          <p class="mt-2 text-slate-600">Centralized space for screenshots, feature status, requirements, and feedback — low-cost, GitHub Pages hosted.</p>
+          <p class="mt-3 text-sm text-slate-500">Documentation, Screenshots & Feature Status — January 2026</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Badges Row -->
+    <div class="flex flex-wrap justify-center gap-6 mb-16">
+      <div class="bg-white rounded-xl shadow-sm px-8 py-6 text-center">
+        <div class="text-3xl font-bold text-slate-900">52+</div>
+        <div class="text-sm uppercase tracking-wider text-slate-600 mt-1">Screenshots</div>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm px-8 py-6 text-center">
+        <div class="text-3xl font-bold text-slate-900">8</div>
+        <div class="text-sm uppercase tracking-wider text-slate-600 mt-1">Feature Boards</div>
+      </div>
+      <div class="bg-white rounded-xl shadow-sm px-8 py-6 text-center">
+        <div class="text-3xl font-bold text-slate-900">Docs & PDFs</div>
+        <div class="text-sm uppercase tracking-wider text-slate-600 mt-1">Requirements & Notes</div>
+      </div>
+    </div>
+
+    <!-- Primary Actions (centered) -->
+    <div class="flex flex-col sm:flex-row gap-6 justify-center mb-20">
+      <a href="/feedback.html" class="inline-flex items-center justify-center px-8 py-4 bg-emerald-600 text-white font-semibold rounded-full hover:bg-emerald-700 transition-colors text-lg">
+        Give Feedback
+      </a>
+      <a href="#feature-boards" class="inline-flex items-center justify-center px-8 py-4 bg-slate-200 text-slate-800 font-semibold rounded-full hover:bg-slate-300 transition-colors text-lg">
+        Browse Feature Boards
+      </a>
+    </div>
+
+    <!-- 1. Screenshots -->
+    <section class="mb-20">
+      <div class="bg-white rounded-2xl shadow-sm p-10 text-center">
+        <h2 class="text-3xl font-bold mb-4">Screenshots (52+)</h2>
+        <p class="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+          Full gallery with category filters: Admin • Onboarding • Founder • Mentor • Site
+        </p>
+        <a href="screenshots/index.html" class="inline-flex items-center gap-3 px-8 py-4 bg-slate-800 text-white font-semibold rounded-full hover:bg-slate-900 transition-colors text-lg">
+          Open Gallery →
+        </a>
+      </div>
+    </section>
+        <!-- 2. Feature Boards -->
+    <section id="feature-boards" class="mb-20">
+      <h2 class="text-3xl font-bold text-center mb-10">Feature Boards</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <a href="founder-features.html" class="bg-emerald-50 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
+          <h3 class="text-xl font-semibold text-emerald-900 mb-2">Founder Features</h3>
+          <p class="text-emerald-700 font-medium">View → Open Board</p>
+        </a>
+        <a href="admin-features.html" class="bg-amber-50 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
+          <h3 class="text-xl font-semibold text-amber-900 mb-2">Admin Features</h3>
+          <p class="text-amber-700 font-medium">View → Open Board</p>
+        </a>
+        <a href="mentors-features.html" class="bg-sky-50 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
+          <h3 class="text-xl font-semibold text-sky-900 mb-2">Mentors Features</h3>
+          <p class="text-sky-700 font-medium">View → Open Board</p>
+        </a>
+        <a href="technical-features.html" class="bg-slate-100 rounded-2xl p-8 text-center hover:shadow-lg transition-shadow">
+          <h3 class="text-xl font-semibold text-slate-800 mb-2">Technical / Docs</h3>
+          <p class="text-slate-600 font-medium">View → Open Board</p>
+        </a>
+      </div>
+    </section>
+  
+
+
+
+    <!-- Sections -->
+    <section class="mb-20">
+      <div class="bg-white rounded-2xl shadow-sm p-10">
+        <h2 class="text-3xl font-bold mb-8 text-center">Documentation</h2>
+        <ul class="space-y-6 max-w-2xl mx-auto">
+          <li class="flex items-center justify-between py-4 border-b border-slate-200">
+            <span class="text-lg text-slate-700">Project Documents</span>
+            <a href="/documentation.html" class="text-emerald-600 font-medium hover:underline">View →</a>
+          </li>
+          <!-- Add more PDFs/links here as needed -->
+          <!-- Example:
+          <li class="flex items-center justify-between py-4 border-b border-slate-200">
+            <span class="text-lg text-slate-700">Technical Specifications PDF</span>
+            <a href="/documentation.html" class="text-emerald-600 font-medium hover:underline">Download →</a>
+          </li>
+          -->
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="mt-20 pt-10 border-t border-slate-200 text-center text-sm text-slate-600">
+    <p>
+      Built with <span class="text-red-500">♥</span> in Kilifi —
+      <a href="https://github.com/Tich-Labs/nailab" class="text-sky-600 underline hover:text-sky-800">Repo</a> •
+      <a href="#" class="text-sky-600 underline hover:text-sky-800">Back to top</a>
+    </p>
+  </footer>
+
+  </main>
+
+</body>
+</html>
+

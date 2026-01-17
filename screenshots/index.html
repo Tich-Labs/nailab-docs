@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Screenshots — Nailab</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>html{scroll-behavior:smooth}</style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <div id="nailabHeader"></div>
+  <script src="../shared.js"></script>
+  <script>if (window.NailabShared && typeof window.NailabShared.renderHeader === 'function') window.NailabShared.renderHeader({ pageTitle: 'Screenshots' });</script>
+
+  <main class="max-w-6xl mx-auto p-6">
+    <header class="mb-6">
+      <h1 class="text-2xl font-semibold">Screenshots Gallery</h1>
+      <p class="text-sm text-slate-600">All screenshot assets used across the project. Click a filter to narrow.</p>
+    </header>
+
+    <section class="bg-white p-4 rounded shadow mb-6">
+      <div class="flex flex-wrap gap-2">
+        <button class="ss-filter px-3 py-1 rounded bg-slate-100 text-sm" data-cat="">All</button>
+        <button class="ss-filter px-3 py-1 rounded bg-slate-100 text-sm" data-cat="admin">Admin</button>
+        <button class="ss-filter px-3 py-1 rounded bg-slate-100 text-sm" data-cat="onboarding">Onboarding</button>
+        <button class="ss-filter px-3 py-1 rounded bg-slate-100 text-sm" data-cat="founder">Founder</button>
+        <button class="ss-filter px-3 py-1 rounded bg-slate-100 text-sm" data-cat="mentor">Mentor</button>
+        <button class="ss-filter px-3 py-1 rounded bg-slate-100 text-sm" data-cat="site">Site</button>
+      </div>
+    </section>
+
+    <section id="gallery" class="grid grid-cols-1 gap-6 w-full">
+      <!-- Static fallback thumbnails (also generated dynamically from JSON if present) -->
+    </section>
+
+    <div class="mt-6 text-center">
+      <a href="../" class="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-400 hover:text-slate-900">Back to overview</a>
+    </div>
+
+  </main>
+
+  <!-- Lightbox (kept but not auto-opened) -->
+  <div id="ssModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50 p-4">
+    <div class="max-w-4xl w-full bg-white rounded shadow p-3">
+      <div class="flex justify-between items-center mb-2">
+        <div class="text-sm text-slate-500">Screenshot preview</div>
+        <button id="ssClose" class="px-2 py-1">Close</button>
+      </div>
+      <img id="ssModalImg" src="" alt="screenshot" class="w-full h-auto rounded max-h-[80vh] mx-auto cursor-zoom-in" />
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      function renderList(list) {
+        const gallery = document.getElementById('gallery');
+        if (!gallery) return;
+        gallery.innerHTML = '';
+        list.forEach(p => {
+          const d = document.createElement('div');
+          d.className = 'rounded overflow-hidden bg-white border p-0';
+          const img = document.createElement('img');
+
+          // normalize path
+          const raw = String(p || '');
+          let normalized = raw.replace(/^\/+/, '');
+          if (normalized.startsWith('screenshots/')) normalized = normalized.slice('screenshots/'.length);
+          img.src = normalized;
+          img.alt = normalized.split('/').pop();
+
+          // set categories (top-level and second-level)
+          try {
+            const parts = normalized.split('/').filter(Boolean);
+            const cats = [];
+            if (parts[0]) cats.push(String(parts[0]).toLowerCase());
+            if (parts[1]) cats.push(String(parts[1]).toLowerCase());
+            img.dataset.cat = cats.join(' ');
+          } catch (e) {
+            img.dataset.cat = 'site';
+          }
+
+          img.className = 'w-full object-contain ss-thumb';
+          d.appendChild(img);
+
+          // optional small View button (not clickable thumbnails)
+          const actions = document.createElement('div');
+          actions.className = 'p-3 text-sm text-slate-600';
+          // append and then gallery
+          gallery.appendChild(d);
+        });
+      }
+
+      // try dynamic JSON
+      fetch('../screenshots_index.json').then(r => r.json()).then(list => { if (Array.isArray(list)) renderList(list); }).catch(()=>{/* ignore */});
+
+      // filters
+      document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.ss-filter').forEach(btn => btn.addEventListener('click', function () {
+          const cat = this.dataset.cat || '';
+          document.querySelectorAll('.ss-filter').forEach(b => { b.classList.remove('bg-emerald-50','text-emerald-800'); b.classList.add('bg-slate-100'); });
+          this.classList.remove('bg-slate-100');
+          this.classList.add('bg-emerald-50','text-emerald-800');
+
+          document.querySelectorAll('.ss-thumb').forEach(img => {
+            const cats = String(img.dataset.cat || '').split(/\s+/).filter(Boolean);
+            const match = !cat || cats.includes(cat);
+            img.closest('div').style.display = match ? '' : 'none';
+          });
+        }));
+
+        // default active
+        const first = document.querySelector('.ss-filter');
+        if (first) { first.classList.remove('bg-slate-100'); first.classList.add('bg-emerald-50','text-emerald-800'); }
+
+        // modal controls remain available if needed
+        const modal = document.getElementById('ssModal');
+        const modalImg = document.getElementById('ssModalImg');
+        const close = document.getElementById('ssClose');
+        if (close) close.addEventListener('click', function () { modal.classList.add('hidden'); modal.classList.remove('flex'); modalImg.src = ''; });
+
+      });
+    })();
+  </script>
+</body>
+</html>
