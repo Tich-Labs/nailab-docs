@@ -7,6 +7,8 @@ on:
 
 jobs:
   scan_ruby:
+    # only run Ruby scans when the repo contains a Gemfile
+    if: ${{ hashFiles('Gemfile') != '' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -25,6 +27,8 @@ jobs:
         run: bin/bundler-audit
       
   lint:
+    # only run RuboCop when the repo contains a Gemfile
+    if: ${{ hashFiles('Gemfile') != '' }}
     runs-on: ubuntu-latest
     env:
       RUBOCOP_CACHE_ROOT: tmp/rubocop
@@ -51,6 +55,8 @@ jobs:
         run: bin/rubocop -f github
 
   test:
+    # only run Rails tests when the repo contains a Gemfile
+    if: ${{ hashFiles('Gemfile') != '' }}
     runs-on: ubuntu-latest
 
     services:

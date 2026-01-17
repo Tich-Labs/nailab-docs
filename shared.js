@@ -69,7 +69,7 @@
           const a11y = activeNow ? 'aria-current="page" ' : '';
           const cls = activeNow ? active : inactive;
           return (
-            '    <a href="' + it.href + '" ' + a11y + 'class="' + cls + '">' +
+              '    <a href="' + it.href + '" ' + a11y + 'class="' + cls + '">' +
             linkIconSvg(it.href) +
             '      ' + escapeHtml(it.label) +
             '    </a>'
@@ -97,7 +97,7 @@
       '  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">' +
       '    <div class="flex justify-between items-center py-4">' +
       '      <div class="flex items-center space-x-4">' +
-      '        <a href="/" class="text-2xl font-bold text-black hover:underline">Nailab</a>' +
+      '        <a href="https://tich-labs.github.io/nailab-docs/" class="text-2xl font-bold text-black hover:underline">Nailab</a>' +
       '        <span class="text-gray-400">|</span>' +
       '        <h2 class="text-xl font-bold text-black">' + escapeHtml(pageTitle) + '</h2>' +
       '      </div>' +
