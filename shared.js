@@ -175,6 +175,9 @@
       (navSection ? (navSection + '  <hr class="my-6 border-slate-200" />') : '') +
       '</div>';
 
+    // mark header rendered to avoid duplicate injection
+    try { container.dataset.nailabHeaderRendered = '1'; } catch (e) {}
+
     const last = document.getElementById('lastUpdated');
     if (last && !last.textContent) {
       last.textContent = new Date().toLocaleDateString('en-US', {
@@ -417,6 +420,22 @@
   window.NailabShared = window.NailabShared || {};
   window.NailabShared.renderHeader = renderHeader;
   window.NailabShared.indentH3Sections = indentH3Sections;
+
+  // Auto-invoke renderHeader safely when `shared.js` is included directly.
+  (function tryAutoRun() {
+    function safeRun() {
+      try {
+        var container = document.getElementById('nailabHeader');
+        if (!container) return;
+        if (container.dataset && container.dataset.nailabHeaderRendered === '1') return;
+        if (window.NailabShared && typeof window.NailabShared.renderHeader === 'function') {
+          window.NailabShared.renderHeader();
+          if (container.dataset) container.dataset.nailabHeaderRendered = '1';
+        }
+      } catch (e) {}
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', safeRun, { once: true }); else safeRun();
+  })();
   
   // Admin subtasks helper: populate the existing `data-details-list` items with checkbox subtasks
   function initAdminSubtasks() {
