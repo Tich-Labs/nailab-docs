@@ -3,34 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Screenshots — Nailab</title>
+  <title>Nailab - Screenshots</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>html{scroll-behavior:smooth}</style>
 </head>
 <body class="bg-slate-50 text-slate-800">
   <div id="nailabHeader"></div>
   <script src="../shared.js"></script>
-  <script>if (window.NailabShared && typeof window.NailabShared.renderHeader === 'function') window.NailabShared.renderHeader({ pageTitle: 'Screenshots' });</script>
+  <script>window.NailabShared.renderHeader();</script>
 
   <main class="max-w-6xl mx-auto p-6">
-    <header class="mb-6">
-      <h1 class="text-2xl font-semibold">Screenshots Gallery</h1>
-      <p class="text-sm text-slate-600">All screenshot assets used across the project. Click a filter to narrow.</p>
-    </header>
-
-    <section class="mb-4">
-      <nav class="flex flex-wrap gap-2" aria-label="Screenshots top menu">
-        <a href="../" class="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm hover:bg-slate-50">Screenshots</a>
-        <a href="../founder-features.html" class="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm hover:bg-slate-50">Founder Features</a>
-        <a href="../mentors-features.html" class="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm hover:bg-slate-50">Mentors Features</a>
-        <a href="../matchmaking-features.html" class="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm hover:bg-slate-50">Matchmaking Features</a>
-        <a href="../content-features.html" class="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm hover:bg-slate-50">Content Features</a>
-        <a href="../subscription-features.html" class="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm hover:bg-slate-50">Subscription Features</a>
-        <a href="../admin-features.html" class="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm hover:bg-slate-50">Admin Features</a>
-        <a href="../technical-features.html" class="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm hover:bg-slate-50">Technical Features</a>
-        <a href="../documentation.html" class="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm hover:bg-slate-50">Documentation</a>
-      </nav>
-    </section>
+    <!-- Primary Actions (centered) -->
+    <div class="flex flex-col sm:flex-row gap-6 justify-center mb-10">
+      <a href="../founder-features.html" class="inline-flex items-center justify-center px-4 py-2 bg-slate-200 text-slate-800 font-semibold rounded hover:bg-slate-300 transition-colors text-md">
+        Go to Feature Boards
+      </a>
+      <a href="../feedback.html" class="inline-flex items-center justify-center px-4 py-2 bg-emerald-600 text-white font-semibold rounded hover:bg-emerald-700 transition-colors text-md">
+        Give Feedback
+      </a>
+    </div>
 
     <section class="bg-white p-4 rounded shadow mb-6">
       <div class="flex flex-wrap gap-2">
@@ -42,6 +33,7 @@
         <button class="ss-filter px-3 py-1 rounded bg-slate-100 text-sm" data-cat="site">Site</button>
       </div>
     </section>
+
 
     <section id="gallery" class="grid grid-cols-1 gap-6 w-full">
       <!-- Static fallback thumbnails (also generated dynamically from JSON if present) -->

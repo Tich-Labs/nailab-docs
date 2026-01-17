@@ -20,6 +20,7 @@
 
   function navItems() {
     return [
+      { href: 'screenshots/index.html', label: 'Screenshots' },
       { href: 'founder-features.html', label: 'Founder Features' },
       { href: 'mentors-features.html', label: 'Mentors Features' },
       { href: 'matchmaking-features.html', label: 'Matchmaking Features' },
