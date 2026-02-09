@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Metrics Form - Interactive Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .spinner {
+            animation: spin 0.8s linear infinite;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen p-4">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12 pt-8">
+            <h1 class="text-4xl font-bold text-purple-900 mb-3">📊 Health Metrics Form</h1>
+            <p class="text-lg text-slate-600">Real-time startup financial health tracking</p>
+            <p class="text-sm text-slate-500 mt-2">Watch calculations update instantly as you enter data</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left: Input Form -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-200">
+                    <!-- Card Header -->
+                    <div class="bg-gradient-to-r from-purple-50 to-purple-100 px-8 py-6 border-b border-purple-200">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span class="text-2xl">📊</span>
+                            <h2 class="text-2xl font-bold text-purple-900">Health Metrics</h2>
+                        </div>
+                        <p class="text-purple-700 text-sm">Update your startup's key financial metrics</p>
+                    </div>
+
+                    <!-- Card Content -->
+                    <div class="p-8 space-y-6">
+                        <!-- Month Selector -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-3 uppercase tracking-wide">
+                                📅 Reporting Period
+                            </label>
+                            <select class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition bg-slate-50">
+                                <option>February 2025</option>
+                                <option>January 2025</option>
+                                <option>December 2024</option>
+                            </select>
+                        </div>
+
+                        <div class="border-t border-slate-200"></div>
+
+                        <!-- Financial Inputs -->
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-4 uppercase tracking-wide">
+                                💰 Financial Inputs
+                            </label>
+
+                            <div class="space-y-5">
+                                <!-- Current Cash Position -->
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                                        Current Cash Position <span class="text-red-600">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-xl">💵</span>
+                                        <input 
+                                            type="number" 
+                                            id="cash"
+                                            placeholder="150000"
+                                            value="150000"
+                                            class="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition text-lg font-semibold"
+                                        >
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-2">💡 How much money in your bank right now</p>
+                                </div>
+
+                                <!-- Monthly Income -->
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                                        Monthly Income <span class="text-red-600">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-xl">💰</span>
+                                        <input 
+                                            type="number" 
+                                            id="income"
+                                            placeholder="25000"
+                                            value="25000"
+                                            class="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition text-lg font-semibold"
+                                        >
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-2">💡 Total revenue collected this month</p>
+                                </div>
+
+                                <!-- Monthly Burn Rate -->
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                                        Monthly Burn Rate <span class="text-red-600">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-xl">📉</span>
+                                        <input 
+                                            type="number" 
+                                            id="burn"
+                                            placeholder="30000"
+                                            value="30000"
+                                            class="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition text-lg font-semibold"
+                                        >
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-2">💡 Total monthly operating expenses (salaries, tools, rent)</p>
+                                </div>
+
+                                <!-- Paying Customers -->
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-2">
+                                        Number of Paying Customers <span class="text-red-600">*</span>
+                                    </label>
+                                    <div class="relative">
+                                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-xl">👥</span>
+                                        <input 
+                                            type="number" 
+                                            id="customers"
+                                            placeholder="45"
+                                            value="45"
+                                            class="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition text-lg font-semibold"
+                                        >
+                                    </div>
+                                    <p class="text-xs text-slate-500 mt-2">💡 Active paying users or subscribers</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="flex gap-4 pt-4 border-t border-slate-200">
+                            <button class="flex-1 px-6 py-3 rounded-lg border-2 border-purple-300 text-purple-700 font-semibold hover:bg-purple-50 transition">
+                                Cancel
+                            </button>
+                            <button id="saveBtn" class="flex-1 px-6 py-3 rounded-lg bg-purple-600 text-white font-semibold hover:bg-purple-700 transition flex items-center justify-center gap-2">
+                                <span>Save Metrics</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Auto-Calculated Results -->
+            <div class="lg:col-span-1">
+                <!-- Auto-Calculated Metrics Section -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 border-2 border-purple-200 shadow-lg sticky top-4">
+                    <div class="text-center mb-6">
+                        <h3 class="text-lg font-bold text-purple-900">✨ Auto-Calculated</h3>
+                        <p class="text-sm text-purple-700 mt-1">Updates in real-time</p>
+                    </div>
+
+                    <!-- Metric Cards -->
+                    <div class="space-y-4">
+                        <!-- Net Burn Rate Card -->
+                        <div class="bg-white rounded-xl p-5 border-2 border-purple-200 shadow-sm transition-all">
+                            <div class="text-center">
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Net Burn Rate</p>
+                                <p id="netBurnValue" class="text-3xl font-bold text-purple-900 mb-2">-$5,000</p>
+                                <div id="netBurnStatus" class="inline-block px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-bold">
+                                    🟢 Cash Positive
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Runway Card -->
+                        <div class="bg-white rounded-xl p-5 border-2 border-purple-200 shadow-sm transition-all">
+                            <div class="text-center">
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Runway</p>
+                                <p id="runwayValue" class="text-3xl font-bold text-purple-900 mb-1">30</p>
+                                <p class="text-sm text-slate-600 mb-2">months</p>
+                                <div id="runwayStatus" class="inline-block px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-bold">
+                                    🟢 Healthy
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Breakdown -->
+                    <div class="mt-6 bg-white rounded-lg p-4 border border-purple-200">
+                        <p class="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-3">Monthly Breakdown</p>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-600">Income:</span>
+                                <span id="incomeDisplay" class="font-bold text-green-600">+$25,000</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-600">Burn:</span>
+                                <span id="burnDisplay" class="font-bold text-red-600">-$30,000</span>
+                            </div>
+                            <div class="border-t border-slate-200 pt-2 flex justify-between items-center">
+                                <span class="font-semibold text-slate-700">Net:</span>
+                                <span id="netDisplay" class="font-bold text-green-600">-$5,000</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Flow Diagram -->
+                    <div class="mt-6 pt-6 border-t border-purple-300">
+                        <p class="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-3">Calculation Flow</p>
+                        <div class="space-y-2 text-xs text-slate-600 font-mono">
+                            <div class="p-2 bg-white rounded border border-slate-200">
+                                <span class="text-purple-600 font-bold">Net Burn</span> = Burn - Income
+                            </div>
+                            <div class="p-2 bg-white rounded border border-slate-200">
+                                <span class="text-purple-600 font-bold">Runway</span> = Cash ÷ Net Burn
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- State Variations Demo Section -->
+        <div class="mt-12">
+            <h3 class="text-2xl font-bold text-slate-800 mb-6 text-center">State Variations</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Success State -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-green-500">
+                    <div class="flex gap-4">
+                        <span class="text-3xl">✅</span>
+                        <div>
+                            <h4 class="font-bold text-green-900 mb-1">Success State</h4>
+                            <p class="text-green-700 text-sm">Metrics saved successfully!</p>
+                            <p class="text-green-600 text-xs mt-2">Your data will be used for health calculations and mentor dashboards.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warning State (Low Runway) -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-yellow-500">
+                    <div class="flex gap-4">
+                        <span class="text-3xl">⚠️</span>
+                        <div>
+                            <h4 class="font-bold text-yellow-900 mb-1">Warning State</h4>
+                            <p class="text-yellow-700 text-sm">Runway < 3 months</p>
+                            <p class="text-yellow-600 text-xs mt-2">Consider reaching out to mentors for funding guidance.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-500">
+                    <div class="flex gap-4">
+                        <span class="text-3xl spinner">⏳</span>
+                        <div>
+                            <h4 class="font-bold text-blue-900 mb-1">Loading State</h4>
+                            <p class="text-blue-700 text-sm">Saving your metrics...</p>
+                            <p class="text-blue-600 text-xs mt-2">Please wait while we save your data to the server.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error State -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-red-500">
+                    <div class="flex gap-4">
+                        <span class="text-3xl">❌</span>
+                        <div>
+                            <h4 class="font-bold text-red-900 mb-1">Error State</h4>
+                            <p class="text-red-700 text-sm">Failed to save metrics</p>
+                            <p class="text-red-600 text-xs mt-2">Monthly Burn Rate must be greater than 0. Please check your inputs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Color Reference -->
+        <div class="mt-12 bg-white rounded-2xl shadow-lg p-8">
+            <h3 class="text-2xl font-bold text-slate-800 mb-6">🎨 Color System & Status Reference</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Runway Health -->
+                <div>
+                    <h4 class="font-bold text-slate-800 mb-4">Runway Status</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 rounded-full bg-green-600"></div>
+                            <span class="text-sm"><span class="font-bold">Healthy:</span> > 6 months</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 rounded-full bg-yellow-600"></div>
+                            <span class="text-sm"><span class="font-bold">Warning:</span> 3–6 months</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 rounded-full bg-red-600"></div>
+                            <span class="text-sm"><span class="font-bold">Critical:</span> < 3 months</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cash Position -->
+                <div>
+                    <h4 class="font-bold text-slate-800 mb-4">Cash Position</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 rounded-full bg-green-600"></div>
+                            <span class="text-sm"><span class="font-bold">Positive:</span> Income > Burn</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-3 h-3 rounded-full bg-red-600"></div>
+                            <span class="text-sm"><span class="font-bold">Negative:</span> Income < Burn</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Colors -->
+                <div>
+                    <h4 class="font-bold text-slate-800 mb-4">Theme Colors</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 rounded bg-purple-600"></div>
+                            <span class="text-sm"><span class="font-bold">Primary:</span> #913f98</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-6 h-6 rounded bg-slate-800"></div>
+                            <span class="text-sm"><span class="font-bold">Dark:</span> #1f2937</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 text-center text-slate-600 pb-8">
+            <p class="text-sm">Interactive mockup of Health Metrics Form | February 9, 2026</p>
+            <p class="text-xs text-slate-500 mt-2">Built with HTML, Tailwind CSS & Vanilla JavaScript</p>
+        </div>
+    </div>
+
+    <script>
+        // Get elements
+        const cashInput = document.getElementById('cash');
+        const incomeInput = document.getElementById('income');
+        const burnInput = document.getElementById('burn');
+        const customersInput = document.getElementById('customers');
+        
+        const netBurnValue = document.getElementById('netBurnValue');
+        const netBurnStatus = document.getElementById('netBurnStatus');
+        const runwayValue = document.getElementById('runwayValue');
+        const runwayStatus = document.getElementById('runwayStatus');
+        
+        const incomeDisplay = document.getElementById('incomeDisplay');
+        const burnDisplay = document.getElementById('burnDisplay');
+        const netDisplay = document.getElementById('netDisplay');
+        
+        const saveBtn = document.getElementById('saveBtn');
+
+        // Format currency
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            }).format(num);
+        }
+
+        // Calculate metrics
+        function calculateMetrics() {
+            const cash = parseFloat(cashInput.value) || 0;
+            const income = parseFloat(incomeInput.value) || 0;
+            const burn = parseFloat(burnInput.value) || 0;
+            
+            // Net Burn = Burn - Income
+            const netBurn = burn - income;
+            
+            // Runway = Cash / Net Burn
+            const runway = netBurn !== 0 ? Math.round(cash / Math.abs(netBurn) * 10) / 10 : 0;
+            
+            // Update displays
+            netBurnValue.textContent = formatCurrency(netBurn);
+            runwayValue.textContent = Math.round(runway);
+            
+            incomeDisplay.textContent = formatCurrency(income);
+            burnDisplay.textContent = formatCurrency(-burn);
+            netDisplay.textContent = formatCurrency(netBurn);
+            
+            // Update status badges
+            if (netBurn < 0) {
+                netBurnStatus.className = 'inline-block px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-bold fade-in';
+                netBurnStatus.textContent = '🟢 Cash Positive';
+            } else {
+                netBurnStatus.className = 'inline-block px-3 py-1 rounded-full bg-red-100 text-red-800 text-xs font-bold fade-in';
+                netBurnStatus.textContent = '🔴 Cash Negative';
+            }
+            
+            // Runway status
+            if (runway > 6) {
+                runwayStatus.className = 'inline-block px-3 py-1 rounded-full bg-green-100 text-green-800 text-xs font-bold fade-in';
+                runwayStatus.textContent = '🟢 Healthy';
+            } else if (runway > 3) {
+                runwayStatus.className = 'inline-block px-3 py-1 rounded-full bg-yellow-100 text-yellow-800 text-xs font-bold fade-in';
+                runwayStatus.textContent = '🟡 Warning';
+            } else if (runway > 0) {
+                runwayStatus.className = 'inline-block px-3 py-1 rounded-full bg-red-100 text-red-800 text-xs font-bold fade-in';
+                runwayStatus.textContent = '🔴 Critical';
+            } else {
+                runwayStatus.className = 'inline-block px-3 py-1 rounded-full bg-red-100 text-red-800 text-xs font-bold fade-in';
+                runwayStatus.textContent = '🔴 No Runway';
+            }
+        }
+
+        // Event listeners for real-time calculation
+        [cashInput, incomeInput, burnInput, customersInput].forEach(input => {
+            input.addEventListener('input', calculateMetrics);
+        });
+
+        // Save button handler
+        saveBtn.addEventListener('click', function() {
+            const originalText = saveBtn.innerHTML;
+            saveBtn.innerHTML = '<svg class="spinner h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"></circle></svg> Saving...';
+            saveBtn.disabled = true;
+            
+            setTimeout(() => {
+                saveBtn.innerHTML = '✅ Saved!';
+                saveBtn.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+                saveBtn.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    saveBtn.innerHTML = originalText;
+                    saveBtn.disabled = false;
+                    saveBtn.classList.add('bg-purple-600', 'hover:bg-purple-700');
+                    saveBtn.classList.remove('bg-green-600');
+                }, 2000);
+            }, 1500);
+        });
+
+        // Initial calculation
+        calculateMetrics();
+    </script>
+</body>
+</html>

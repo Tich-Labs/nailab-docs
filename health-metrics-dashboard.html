@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Metrics Dashboard - 12 Month Trends</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen p-4">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12 pt-8">
+            <h1 class="text-4xl font-bold text-purple-900 mb-3">📊 Startup Health Dashboard</h1>
+            <p class="text-lg text-slate-600">12-Month Metrics & Trends</p>
+            <p class="text-sm text-slate-500 mt-2">Real-time tracking of key financial indicators</p>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-purple-600">
+                <p class="text-slate-600 text-sm font-semibold mb-2">Current MRR</p>
+                <p class="text-3xl font-bold text-purple-900">$48,500</p>
+                <p class="text-green-600 text-xs mt-2">↑ +42% from 3 months ago</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-green-600">
+                <p class="text-slate-600 text-sm font-semibold mb-2">Runway</p>
+                <p class="text-3xl font-bold text-green-900">24 months</p>
+                <p class="text-green-600 text-xs mt-2">🟢 Healthy</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-blue-600">
+                <p class="text-slate-600 text-sm font-semibold mb-2">Monthly Burn</p>
+                <p class="text-3xl font-bold text-blue-900">$28,000</p>
+                <p class="text-blue-600 text-xs mt-2">↓ -8% from peak</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 border-l-4 border-orange-600">
+                <p class="text-slate-600 text-sm font-semibold mb-2">Paying Customers</p>
+                <p class="text-3xl font-bold text-orange-900">287</p>
+                <p class="text-orange-600 text-xs mt-2">↑ +18 this month</p>
+            </div>
+        </div>
+
+        <!-- Time Period Selector -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-12 flex flex-wrap gap-3 justify-center">
+            <button class="px-6 py-2 rounded-lg bg-purple-600 text-white font-semibold hover:bg-purple-700">3 Months</button>
+            <button class="px-6 py-2 rounded-lg bg-slate-200 text-slate-800 font-semibold hover:bg-slate-300">6 Months</button>
+            <button class="px-6 py-2 rounded-lg bg-slate-200 text-slate-800 font-semibold hover:bg-slate-300">9 Months</button>
+            <button class="px-6 py-2 rounded-lg bg-slate-200 text-slate-800 font-semibold hover:bg-slate-300">12 Months</button>
+        </div>
+
+        <!-- Charts Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <!-- Monthly Recurring Revenue (MRR) Chart -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">💰 Monthly Recurring Revenue (MRR)</h2>
+                    <p class="text-slate-600 text-sm">Revenue growth trajectory over 12 months</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="mrrChart"></canvas>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-200">
+                    <p class="text-xs text-slate-600"><span class="font-bold">Trend:</span> Steady growth from $0 to $48.5K. Strong product-market fit.</p>
+                </div>
+            </div>
+
+            <!-- Runway Forecast Chart -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">🎯 Runway Forecast</h2>
+                    <p class="text-slate-600 text-sm">Months of funding remaining based on current burn</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="runwayChart"></canvas>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-200">
+                    <p class="text-xs text-slate-600"><span class="font-bold">Status:</span> Runway improved significantly as revenue scaled. Safe zone maintained.</p>
+                </div>
+            </div>
+
+            <!-- Monthly Burn Rate Chart -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">📉 Monthly Burn Rate</h2>
+                    <p class="text-slate-600 text-sm">Total operating expenses per month</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="burnChart"></canvas>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-200">
+                    <p class="text-xs text-slate-600"><span class="font-bold">Insight:</span> Burn rate peaked at month 8 during team expansion, now stabilizing.</p>
+                </div>
+            </div>
+
+            <!-- Customer Growth Chart -->
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">👥 Paying Customers Growth</h2>
+                    <p class="text-slate-600 text-sm">Active paying users/subscribers over time</p>
+                </div>
+                <div class="chart-container">
+                    <canvas id="customersChart"></canvas>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-200">
+                    <p class="text-xs text-slate-600"><span class="font-bold">Growth Rate:</span> Accelerating adoption. 287 customers with 18 new this month.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Metrics Table -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 mb-12">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">📋 Detailed Metrics Breakdown</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="border-b-2 border-slate-300 bg-slate-50">
+                            <th class="px-4 py-3 text-left font-bold text-slate-700">Month</th>
+                            <th class="px-4 py-3 text-right font-bold text-slate-700">MRR</th>
+                            <th class="px-4 py-3 text-right font-bold text-slate-700">Burn Rate</th>
+                            <th class="px-4 py-3 text-right font-bold text-slate-700">Net Burn</th>
+                            <th class="px-4 py-3 text-right font-bold text-slate-700">Cash</th>
+                            <th class="px-4 py-3 text-right font-bold text-slate-700">Runway</th>
+                            <th class="px-4 py-3 text-right font-bold text-slate-700">Customers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-slate-200 hover:bg-slate-50">
+                            <td class="px-4 py-3 font-medium text-slate-800">Month 1</td>
+                            <td class="px-4 py-3 text-right text-green-600 font-semibold">$2,500</td>
+                            <td class="px-4 py-3 text-right text-red-600">$24,000</td>
+                            <td class="px-4 py-3 text-right text-red-600">-$21,500</td>
+                            <td class="px-4 py-3 text-right font-semibold">$200,000</td>
+                            <td class="px-4 py-3 text-right font-semibold">9.3 mo</td>
+                            <td class="px-4 py-3 text-right font-semibold">12</td>
+                        </tr>
+                        <tr class="border-b border-slate-200 hover:bg-slate-50">
+                            <td class="px-4 py-3 font-medium text-slate-800">Month 3</td>
+                            <td class="px-4 py-3 text-right text-green-600 font-semibold">$8,200</td>
+                            <td class="px-4 py-3 text-right text-red-600">$25,500</td>
+                            <td class="px-4 py-3 text-right text-red-600">-$17,300</td>
+                            <td class="px-4 py-3 text-right font-semibold">$135,600</td>
+                            <td class="px-4 py-3 text-right font-semibold">7.8 mo</td>
+                            <td class="px-4 py-3 text-right font-semibold">34</td>
+                        </tr>
+                        <tr class="border-b border-slate-200 hover:bg-slate-50">
+                            <td class="px-4 py-3 font-medium text-slate-800">Month 6</td>
+                            <td class="px-4 py-3 text-right text-green-600 font-semibold">$18,500</td>
+                            <td class="px-4 py-3 text-right text-red-600">$27,000</td>
+                            <td class="px-4 py-3 text-right text-red-600">-$8,500</td>
+                            <td class="px-4 py-3 text-right font-semibold">$64,200</td>
+                            <td class="px-4 py-3 text-right font-semibold">7.5 mo</td>
+                            <td class="px-4 py-3 text-right font-semibold">89</td>
+                        </tr>
+                        <tr class="border-b border-slate-200 hover:bg-slate-50">
+                            <td class="px-4 py-3 font-medium text-slate-800">Month 9</td>
+                            <td class="px-4 py-3 text-right text-green-600 font-semibold">$32,800</td>
+                            <td class="px-4 py-3 text-right text-red-600">$30,500</td>
+                            <td class="px-4 py-3 text-right text-red-600">-$2,300</td>
+                            <td class="px-4 py-3 text-right font-semibold">$45,800</td>
+                            <td class="px-4 py-3 text-right font-semibold">19.9 mo</td>
+                            <td class="px-4 py-3 text-right font-semibold">167</td>
+                        </tr>
+                        <tr class="border-b border-slate-200 hover:bg-slate-50 bg-green-50">
+                            <td class="px-4 py-3 font-medium text-slate-800">Month 12</td>
+                            <td class="px-4 py-3 text-right text-green-600 font-semibold">$48,500</td>
+                            <td class="px-4 py-3 text-right text-red-600">$28,000</td>
+                            <td class="px-4 py-3 text-right text-green-600 font-semibold">+$20,500</td>
+                            <td class="px-4 py-3 text-right font-semibold">$180,300</td>
+                            <td class="px-4 py-3 text-right font-semibold">24+ mo</td>
+                            <td class="px-4 py-3 text-right font-semibold">287</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Insights Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border-l-4 border-green-600">
+                <h3 class="font-bold text-green-900 mb-2">✅ Strengths</h3>
+                <ul class="text-sm text-green-800 space-y-1">
+                    <li>• MRR growing at 38% month-over-month</li>
+                    <li>• Customer acquisition accelerating</li>
+                    <li>• Achieved profitability at month 11</li>
+                    <li>• Runway improved to 24+ months</li>
+                </ul>
+            </div>
+
+            <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 border-l-4 border-yellow-600">
+                <h3 class="font-bold text-yellow-900 mb-2">⚠️ Areas to Monitor</h3>
+                <ul class="text-sm text-yellow-800 space-y-1">
+                    <li>• Churn rate needs tracking</li>
+                    <li>• Customer acquisition cost vs LTV</li>
+                    <li>• Burn rate peaked at month 8</li>
+                    <li>• Staffing expansion impact</li>
+                </ul>
+            </div>
+
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border-l-4 border-blue-600">
+                <h3 class="font-bold text-blue-900 mb-2">🎯 Recommendations</h3>
+                <ul class="text-sm text-blue-800 space-y-1">
+                    <li>• Maintain current growth trajectory</li>
+                    <li>• Optimize customer acquisition cost</li>
+                    <li>• Plan for next funding round</li>
+                    <li>• Monitor cash flow closely</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-slate-600 pb-8">
+            <p class="text-sm">Health Metrics Dashboard Demo | Dummy Data for Visualization | February 9, 2026</p>
+            <p class="text-xs text-slate-500 mt-2">Built with HTML, Tailwind CSS & Chart.js</p>
+        </div>
+    </div>
+
+    <script>
+        // Chart colors
+        const colors = {
+            primary: '#913f98',
+            success: '#059669',
+            danger: '#dc2626',
+            warning: '#d97706',
+            info: '#0ea5e9',
+            light: '#f1f5f9',
+        };
+
+        // Dummy data for 12 months
+        const months = ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7', 'M8', 'M9', 'M10', 'M11', 'M12'];
+        
+        const mrrData = [2.5, 4.8, 8.2, 12.5, 16.8, 18.5, 22.3, 28.5, 32.8, 38.2, 42.5, 48.5];
+        const burnData = [24, 24.5, 25.5, 26, 27.5, 27, 29.5, 30.5, 30, 29.2, 28.5, 28];
+        const runwayData = [9.3, 8.2, 7.8, 7.2, 6.8, 7.5, 6.5, 6.2, 19.9, 22.5, 24.8, 24];
+        const customersData = [12, 19, 34, 51, 67, 89, 112, 145, 167, 201, 245, 287];
+
+        // Chart.js default options
+        Chart.defaults.font.family = "system-ui, -apple-system, sans-serif";
+        Chart.defaults.color = '#6b7280';
+
+        // ============ MRR Chart ============
+        const mrrCtx = document.getElementById('mrrChart').getContext('2d');
+        new Chart(mrrCtx, {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'MRR ($K)',
+                    data: mrrData,
+                    borderColor: colors.primary,
+                    backgroundColor: 'rgba(145, 63, 152, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: colors.primary,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointHoverRadius: 7,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { callback: v => '$' + v + 'K' },
+                        grid: { color: '#e5e7eb' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // ============ Runway Chart ============
+        const runwayCtx = document.getElementById('runwayChart').getContext('2d');
+        new Chart(runwayCtx, {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Runway (months)',
+                    data: runwayData,
+                    borderColor: colors.success,
+                    backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: (context) => {
+                        const value = context.raw;
+                        if (value < 3) return colors.danger;
+                        if (value < 6) return colors.warning;
+                        return colors.success;
+                    },
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { callback: v => v + 'mo' },
+                        grid: { color: '#e5e7eb' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // ============ Burn Rate Chart ============
+        const burnCtx = document.getElementById('burnChart').getContext('2d');
+        new Chart(burnCtx, {
+            type: 'bar',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Monthly Burn ($K)',
+                    data: burnData,
+                    backgroundColor: colors.danger,
+                    borderColor: '#991b1b',
+                    borderWidth: 2,
+                    borderRadius: 8,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { callback: v => '$' + v + 'K' },
+                        grid: { color: '#e5e7eb' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // ============ Customers Chart ============
+        const customersCtx = document.getElementById('customersChart').getContext('2d');
+        new Chart(customersCtx, {
+            type: 'line',
+            data: {
+                labels: months,
+                datasets: [{
+                    label: 'Paying Customers',
+                    data: customersData,
+                    borderColor: colors.info,
+                    backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: colors.info,
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { callback: v => v + ' customers' },
+                        grid: { color: '#e5e7eb' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
