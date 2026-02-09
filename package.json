@@ -1,0 +1,23 @@
+{
+  "name": "nailab-docs",
+  "version": "1.0.0",
+  "description": "This repository folder contains a small static documentation site for the Nailab Mentorhsip Platform project : screenshots, feature boards, documentation PDFs and a feedback page. It's intentionally simple so it can be hosted on GitHub Pages.",
+  "main": "screenshots.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tich-Labs/nailab-docs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tich-Labs/nailab-docs/issues"
+  },
+  "homepage": "https://github.com/Tich-Labs/nailab-docs#readme",
+  "dependencies": {
+    "puppeteer": "^24.37.2"
+  }
+}
