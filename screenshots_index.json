@@ -10,17 +10,5 @@
   "mentor-directory/mentor-directory-desktop.png",
   "startup-directory/startup-directory-desktop.png",
   "login/login-desktop.png",
-  "signup/signup-desktop.png",
-  "founder-account/founder-account-desktop.png",
-  "founder-community/founder-community-desktop.png",
-  "founder-dashboard/founder-dashboard-desktop.png",
-  "founder-mentors/founder-mentors-desktop.png",
-  "founder-mentorship/founder-mentorship-desktop.png",
-  "founder-messages/founder-messages-desktop.png",
-  "founder-opportunities/founder-opportunities-desktop.png",
-  "founder-profile/founder-profile-desktop.png",
-  "founder-progress/founder-progress-desktop.png",
-  "founder-resources/founder-resources-desktop.png",
-  "founder-sessions/founder-sessions-desktop.png",
-  "founder-startup-profile/founder-startup-profile-desktop.png"
+  "signup/signup-desktop.png"
 ]
